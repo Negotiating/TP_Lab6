@@ -102,30 +102,21 @@ namespace Lab6
             var books = new List<Book>()
             {
                  new Book(new Author("Леру", "Гастон"), "Призрак оперы"),
-                 new Book(new Author("Остин", "Джейн"), "Гордость и предубеждение")
+                 new Book(new Author("Остин", "Джейн"), "Гордость и предубеждение"),
+                 new Book(new Author("Остин", "Джейн"), "Эмма"),
+                 new Book(new Author("Остин", "Джейн"), "Чуства и чуствительность"),
+                 new Book(new Author("Мисима", "Юкио"), "Исповедь Маски")
             };
             var library = new Library(books);
 
-            library.Event += DisplayMessage;
-            library.infoEvent += InfoMessage;
-            
-            library.CurrentListOfBooks();
+            Console.WriteLine($"Информация о книге \"Призрак оперы\": \n{library.InfoByName("Призрак оперы")}");
 
-            Console.Write("Введите название книги: ");
-            string newBookName = Console.ReadLine();
-            Console.Write("Введите фамилию и имя автора: ");
-            var newAutor = Console.ReadLine().Split(' ').ToArray();
-
-            library.AddBook(new Book(new Author(newAutor[0], newAutor[1]), newBookName));
-            library.CurrentListOfBooks();
-
-            Console.WriteLine($"Книги автора {new Author(newAutor[0], newAutor[1])}\n");
-            foreach (var book in library.AllBooksByAuthor(new Author(newAutor[0], newAutor[1])))
+            Console.WriteLine("\nВсе книги Джейн Остин: ");
+            foreach (var book in library.AllBooksByAuthor(new Author("Остин", "Джейн")))
+            {
                 Console.WriteLine(book);
-
-            library.RemoveBook(0);
-            Console.WriteLine("Список книг после удаления 0 элемента из списка");
-            library.CurrentListOfBooks();
+                Console.WriteLine();
+            }
 
             Console.ReadLine();
         }
